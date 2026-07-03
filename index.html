@@ -18,13 +18,10 @@
 </head>
 <body>
   <div id="root"></div>
-
   const { useState, useEffect, useRef, useCallback } = React;
-
 const ref = (db, path) => db.ref(path);
 const onValue = (r, cb) => r.on("value", cb);
 const update = (r, data) => r.update(data);
-
 
     // ✅ Firebase config
     const firebaseConfig = {
@@ -38,7 +35,6 @@ const update = (r, data) => r.update(data);
     };
 
     let database;
-
 try {
   firebase.initializeApp(firebaseConfig);
   database = firebase.database();
