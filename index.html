@@ -19,10 +19,12 @@
 <body>
   <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef, useCallback } = React;
-    const { initializeApp } = firebase;
-    const { getDatabase, ref, onValue, set, update } = firebase.database;
+  const { useState, useEffect, useRef, useCallback } = React;
+
+const ref = (db, path) => db.ref(path);
+const onValue = (r, cb) => r.on("value", cb);
+const update = (r, data) => r.update(data);
+
 
     // ✅ Firebase config
     const firebaseConfig = {
@@ -35,13 +37,15 @@
       databaseURL: "https://lgs-kocu-2cad7-default-rtdb.europe-west1.firebasedatabase.app"
     };
 
-    let app, database;
-    try {
-      app = initializeApp(firebaseConfig);
-      database = getDatabase(app);
-    } catch (e) {
-      console.error("Firebase başlatılamadı. Config kontrol et!");
-    }
+    let database;
+
+try {
+  firebase.initializeApp(firebaseConfig);
+  database = firebase.database();
+  console.log("Firebase başarıyla bağlandı");
+} catch (e) {
+  console.error("Firebase hatası:", e);
+}
 
     // ─── DERSLER ────────────────────────────────────────────────────────────
     const DERSLER = {
